@@ -31,6 +31,7 @@ class CPU:
             # Arithmetic operations
             "ADD": self._add,        # A = A + B
             "SUB": self._sub,        # A = A - B
+            "MUL": self._mul,        # A = A * B
             
             # Comparison operation
             "CMP": self._cmp,        # Compare A and B, set flags
@@ -42,6 +43,13 @@ class CPU:
             
             # Control operations
             "HALT": self._halt,      # Stop execution
+            
+            # Function operations
+            "CALL": self._call,      # Call a function at address
+            "RET": self._return,     # Return from a function
+            "PUSH": self._push,      # Push register A to stack
+            "POP_PARAM": self._pop_param,  # Pop function parameter from stack to register A
+            "POP_RET": self._pop_ret,      # Pop return address from stack (internal use)
         }
         
     def execute(self, instruction, operand):
@@ -82,13 +90,18 @@ class CPU:
         self.pc += 1
     
     def _add(self, _):
-        """A = A + B"""
+        """Add register B to register A."""
         self.register_a += self.register_b
         self.pc += 1
     
     def _sub(self, _):
-        """A = A - B"""
+        """Subtract register B from register A."""
         self.register_a -= self.register_b
+        self.pc += 1
+    
+    def _mul(self, _):
+        """Multiply register A by register B."""
+        self.register_a *= self.register_b
         self.pc += 1
     
     def _cmp(self, _):
@@ -123,6 +136,44 @@ class CPU:
             self.pc += 1
     
     def _halt(self, _):
-        """Stop execution."""
+        """Halt the CPU."""
         self.running = False
+        self.pc += 1
+    
+    def _call(self, address):
+        """Call a function at the specified address."""
+        # Save the return address (next instruction after call)
+        self.memory.push(self.pc + 1)
+        # Jump to function
+        self.pc = address
+    
+    def _return(self, _):
+        """Return from a function."""
+        # Return instruction doesn't need to pop anything
+        # The calling function should handle popping the return address
+        try:
+            # Get the return address (what was pushed by CALL)
+            return_address = self.memory.pop()
+            # Jump to the return address
+            self.pc = return_address
+        except IndexError:
+            # If stack is empty, halt
+            print("Warning: Stack underflow during return. Halting.")
+            self.running = False
+    
+    def _push(self, _):
+        """Push register A onto the stack."""
+        self.memory.push(self.register_a)
+        self.pc += 1
+    
+    def _pop_param(self, _):
+        """Pop a parameter from the stack into register A."""
+        # This doesn't pop the return address
+        self.register_a = self.memory.pop()
+        self.pc += 1
+    
+    def _pop_ret(self, _):
+        """Pop the return address off the stack."""
+        # Only used internally
+        self.memory.pop()  # Discard the value
         self.pc += 1

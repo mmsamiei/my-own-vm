@@ -18,12 +18,13 @@ SimpleScript is a minimalist programming language designed to run on a simple vi
 SimpleScript supports:
 
 1. **Variable assignments**: `x = 5`
-2. **Arithmetic operations**: addition (`+`) and subtraction (`-`)
+2. **Arithmetic operations**: addition (`+`), subtraction (`-`), and multiplication (`*`)
 3. **Output**: `print` statements
 4. **Comments**: Lines starting with `#`
 5. **Conditionals**: `if`/`else` statements with equality/inequality checks
 6. **Loops**: `while` loops for repeated execution
 7. **Nested constructs**: Support for nested if/else statements and while loops
+8. **Functions**: Support for function definitions, calls, and recursion
 
 ## Syntax Rules
 
@@ -76,20 +77,37 @@ while counter != 6
   counter = counter + 1
 ```
 
-### Fibonacci Sequence Example
+### Function Definitions and Calls
 ```
-# Generate Fibonacci sequence
-a = 0
-b = 1
-print a
-print b
-count = 2
-while count != 10
-  next = a + b
-  print next
-  a = b
-  b = next
-  count = count + 1
+# Define a function to calculate square
+def square(n)
+  result = n * n
+  return result
+
+# Call the function
+x = 5
+sq_x = square(x)
+print sq_x  # Will print 25
+```
+
+### Recursion
+```
+# Recursive factorial function
+def factorial(n)
+  if n == 0
+    return 1
+  else
+    if n == 1
+      return 1
+    else
+      temp = n - 1
+      sub_fact = factorial(temp)  # Recursive call
+      result = n * sub_fact
+      return result
+
+# Calculate factorial of 3
+result = factorial(3)
+print result  # Will print 6
 ```
 
 ## How It Works
@@ -106,23 +124,30 @@ The SimpleScript compiler translates the code into a sequence of instructions fo
 - Memory addresses 0-15: Reserved for system use
 - Memory addresses 16+: Used for storing variables
 - Memory address 241 (0xF1): Output buffer
+- Memory address 242 (0xF2): Output status register
+
+## Function Call Mechanism
+
+SimpleScript implements function calls using a stack-based approach:
+
+1. Function arguments are evaluated and pushed onto the stack
+2. The return address is stored when a function is called
+3. The callee function pops arguments from the stack
+4. The function returns by jumping to the stored return address
+5. Return values are passed through register A
 
 ## Limitations
 
 This is a simple language with the following limitations:
 
 - No arrays or complex data structures
-- No functions or procedures
 - Only integers are supported
-- Limited to addition and subtraction
+- Limited to addition, subtraction, and multiplication
 - No input methods (values must be hardcoded)
 - Numbers are limited to a small range (avoid values over ~200)
 - SimpleScript has a simple lexer and parser, so complex expressions are not supported.
 - Error handling is minimal.
-- No support for functions or procedures.
-- No support for string variables or string literals.
 - Variable scope is global for the entire program.
-- Code must be written without leading indentation - the compiler currently does not properly handle indented code.
 
 ## Running Programs
 
@@ -148,13 +173,14 @@ Several example programs are included in the `examples/` directory:
 - `fibonacci.txt`: Generates the Fibonacci sequence
 - `calculator.txt`: A simple calculator with nested conditionals
 - `nested_test.txt`: Tests nested if/else statements and while loops
-- `example_program.txt`: A comprehensive example showing various features
+- `functions.ss`: Demonstrates function definition, calls, and recursion
 
 ## Future Enhancements
 
 Potential future enhancements for SimpleScript:
-- Support for functions/procedures
-- Support for larger numeric values
-- More arithmetic operations (multiplication, division)
+- Support for even more arithmetic operations (division, modulo)
 - Input functionality
-- Arrays and more complex data structures 
+- Arrays and more complex data structures
+- Better error reporting with line numbers
+- Local variable scope
+- Standard library of built-in functions 
