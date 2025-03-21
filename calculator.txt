@@ -1,0 +1,42 @@
+# SimpleScript Calculator
+# A program that performs different operations based on a selection
+
+# Define the numbers to operate on
+num1 = 15
+num2 = 5
+
+# Define the operation:
+# 1 = addition
+# 2 = subtraction
+operation = 2
+
+# Perform the selected operation
+result = 0
+
+if operation == 1
+  # Addition
+  result = num1 + num2
+  print result    # Should output 20 if operation is 1
+else
+  if operation == 2
+    # Subtraction
+    result = num1 - num2
+    print result  # Should output 10 if operation is 2
+  else
+    # Invalid operation
+    print 255     # Error code
+
+# Test with a different operation
+operation = 1
+if operation == 1
+  # Addition
+  result = num1 + num2
+  print result    # Should output 20
+else
+  if operation == 2
+    # Subtraction
+    result = num1 - num2
+    print result
+  else
+    # Invalid operation
+    print 255     # Error code 

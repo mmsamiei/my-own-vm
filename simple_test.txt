@@ -1,0 +1,11 @@
+# Simple test program
+a = 5
+b = 10
+
+# Basic print test
+print a
+print b
+
+# Test addition
+c = a + b
+print c 

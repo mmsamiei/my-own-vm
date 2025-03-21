@@ -9,14 +9,6 @@ program = [
     ("HALT", None)   # Stop execution
 ]
 
-program = [
-    ("LDA", 5),      # Load 5 into register A
-    ("LDB", 10),     # Load 10 into register B
-    ("ADD", None),   # Add B to A (result in A)
-    ("STA", 15),     # Store result at address 15
-    ("HALT", None)   # Stop execution
-]
-
 # Create and run the computer
 computer = Computer()
 computer.load_program(program)

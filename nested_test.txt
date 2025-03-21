@@ -1,0 +1,51 @@
+# Comprehensive test of nested structures
+x = 5
+y = 10
+z = 0
+
+# Nested if test
+if x == 5
+  if y == 10
+    z = 100
+    print z  # Should print 100
+  else
+    z = 200
+    print z
+else
+  if y == 10
+    z = 300
+    print z
+  else
+    z = 400
+    print z
+
+# While loop with nested if
+counter = 1
+while counter != 6
+  if counter == 3
+    print 42  # Changed from 1000 to 42 (smaller number)
+  else
+    print counter  # Should print 1, 2, 4, 5
+  counter = counter + 1
+
+# Nested while (rare but should work)
+outer = 1
+while outer != 3
+  inner = 1
+  while inner != 3
+    # Print combination of outer and inner
+    if outer == 1
+      if inner == 1
+        print 11  # outer=1, inner=1
+      else
+        print 12  # outer=1, inner=2
+    else
+      if inner == 1
+        print 21  # outer=2, inner=1
+      else
+        print 22  # outer=2, inner=2
+    inner = inner + 1
+  outer = outer + 1
+
+# Final output
+print 50  # Changed from 999 to 50 (smaller number) 

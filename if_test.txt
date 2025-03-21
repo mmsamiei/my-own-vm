@@ -1,0 +1,14 @@
+# Test program for if statements
+x = 5
+y = 10
+
+# Simple if statement
+if x == 5
+  z = x + y
+  print z
+  
+# If with else statement
+if y == 5
+  print 100
+else
+  print 200 

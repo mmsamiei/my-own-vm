@@ -1,0 +1,32 @@
+# SimpleScript Fibonacci Generator
+# Calculates the first 10 Fibonacci numbers
+
+# Initialize the first two Fibonacci numbers
+a = 0
+b = 1
+
+# Print the first two numbers
+print a
+print b
+
+# Counter for the loop
+count = 2
+
+# Calculate the rest of the sequence
+while count != 10
+  # Calculate the next Fibonacci number
+  next = a + b
+  
+  # Print the number
+  print next
+  
+  # Update values for next iteration
+  a = b
+  b = next
+  
+  # Increment counter
+  count = count + 1
+
+
+# Print completion message (code 100)
+print 100 

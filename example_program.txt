@@ -1,0 +1,46 @@
+# SimpleScript Example Program
+# This program demonstrates various features of SimpleScript
+
+# Initialize variables
+a = 5
+b = 10
+
+# Basic arithmetic
+sum = a + b
+difference = a - b
+
+# Print results
+print sum      # Should output 15
+print difference  # Should output -5
+
+# If-else statement
+if a == 5
+  print 100    # This will execute
+else
+  print 200
+
+# Change value and test if-else again
+a = 7
+if a == 5
+  print 300
+else
+  print 400    # This will execute
+
+# While loop
+counter = 1
+while counter != 6
+  print counter  # Will print 1, 2, 3, 4, 5
+  counter = counter + 1
+
+# Nested structures
+result = 0
+if a != 5
+  result = 50
+  if b == 10
+    result = result + 25  # result becomes 75
+  else
+    result = result + 5
+else
+  result = 100
+
+print result   # Should print 75 
