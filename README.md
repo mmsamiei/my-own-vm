@@ -117,6 +117,12 @@ This is a simple language with the following limitations:
 - Limited to addition and subtraction
 - No input methods (values must be hardcoded)
 - Numbers are limited to a small range (avoid values over ~200)
+- SimpleScript has a simple lexer and parser, so complex expressions are not supported.
+- Error handling is minimal.
+- No support for functions or procedures.
+- No support for string variables or string literals.
+- Variable scope is global for the entire program.
+- Code must be written without leading indentation - the compiler currently does not properly handle indented code.
 
 ## Running Programs
 

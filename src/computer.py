@@ -1,5 +1,5 @@
-from memory import Memory
-from cpu import CPU
+from src.memory import Memory
+from src.cpu import CPU
 
 class Computer:
     def __init__(self, memory_size=256):

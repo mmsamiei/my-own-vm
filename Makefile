@@ -1,21 +1,20 @@
 # SimpleScript Makefile
 
-.PHONY: help run-simple run-if run-while run-fibonacci run-calculator run-nested run-example
+.PHONY: all help clean test test-compiler test-computer test-integration run-example
 
 # Default target: show help
 help:
 	@echo "SimpleScript Makefile"
 	@echo "--------------------"
 	@echo "Available targets:"
-	@echo "  help         - Show this help message"
-	@echo "  run-simple   - Run the simple test example"
-	@echo "  run-if       - Run the if statement example"
-	@echo "  run-while    - Run the while loop example"
-	@echo "  run-fibonacci - Run the Fibonacci sequence example"
-	@echo "  run-calculator - Run the calculator example"
-	@echo "  run-nested   - Run the nested structures example"
-	@echo "  run-example  - Run the comprehensive example program"
-	@echo "  debug-EXAMPLE - Run any example in debug mode (e.g., debug-fibonacci)"
+	@echo "  all            - Build the SimpleScript system"
+	@echo "  clean          - Remove build artifacts"
+	@echo "  test           - Run all tests"
+	@echo "  test-compiler  - Run compiler tests only"
+	@echo "  test-computer  - Run computer tests only"
+	@echo "  test-integration - Run integration tests only"
+	@echo "  run-example    - Run a SimpleScript example program (use file=examples/filename.ss)"
+	@echo "  help           - Display this help message"
 	@echo ""
 	@echo "Usage: make [target]"
 
@@ -39,7 +38,13 @@ run-nested:
 	python3 run_simplescript.py examples/nested_test.txt
 
 run-example:
-	python3 run_simplescript.py examples/example_program.txt
+	@echo "Running SimpleScript example..."
+	@if [ -z "$(file)" ]; then \
+		echo "Error: Please specify the example file to run with 'file=examples/filename.ss'"; \
+		echo "Example: make run-example file=examples/calculator.ss"; \
+		exit 1; \
+	fi
+	@./simplescript $(file)
 
 # Debug mode examples
 debug-simple:
@@ -61,4 +66,35 @@ debug-nested:
 	python3 run_simplescript.py examples/nested_test.txt --debug
 
 debug-example:
-	python3 run_simplescript.py examples/example_program.txt --debug 
+	python3 run_simplescript.py examples/example_program.txt --debug
+
+# Test targets
+test:
+	@echo "Running all SimpleScript tests..."
+	@python3 tests/run_tests.py
+
+test-compiler:
+	@echo "Running compiler tests..."
+	@python3 -m unittest tests.test_compiler
+
+test-computer:
+	@echo "Running computer (VM) tests..."
+	@python3 -m unittest tests.test_computer
+
+test-integration:
+	@echo "Running integration tests..."
+	@python3 -m unittest tests/test_integration.py
+
+# Display help information about the available commands
+help:
+	@echo "Available targets:"
+	@echo "  all            - Build the SimpleScript system"
+	@echo "  clean          - Remove build artifacts"
+	@echo "  test           - Run all tests"
+	@echo "  test-compiler  - Run compiler tests only"
+	@echo "  test-computer  - Run computer tests only"
+	@echo "  test-integration - Run integration tests only"
+	@echo "  run-example    - Run a SimpleScript example program (use file=examples/filename.ss)"
+	@echo "  help           - Display this help message"
+	@echo ""
+	@echo "Usage: make [target]" 

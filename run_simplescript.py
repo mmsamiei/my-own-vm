@@ -13,8 +13,9 @@ import os
 # Add the src directory to the Python path
 sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
 
-from compiler import SimpleCompiler
-from computer import Computer
+# Import SimpleScript components
+from src.compiler import SimpleCompiler
+from src.computer import Computer
 
 def main():
     # Check if program file was provided

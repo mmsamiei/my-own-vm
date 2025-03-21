@@ -1,16 +1,16 @@
 class Memory:
     def __init__(self, size=256):
-        # Initialize memory with zeros
-        self.data = [0] * size
         self.size = size
-    
+        self.memory = [0] * size
+        
     def read(self, address):
-        if 0 <= address < self.size:
-            return self.data[address]
-        raise Exception(f"Memory access error: {address}")
-    
+        """Read a value from memory at the given address."""
+        if not 0 <= address < self.size:
+            raise IndexError(f"Memory address {address} out of bounds (0-{self.size-1})")
+        return self.memory[address]
+        
     def write(self, address, value):
-        if 0 <= address < self.size:
-            self.data[address] = value & 0xFF  # Ensure 8-bit value
-        else:
-            raise Exception(f"Memory write error: {address}")
+        """Write a value to memory at the given address."""
+        if not 0 <= address < self.size:
+            raise IndexError(f"Memory address {address} out of bounds (0-{self.size-1})")
+        self.memory[address] = value
