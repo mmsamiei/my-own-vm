@@ -106,6 +106,11 @@ class CPU:
         self.carry_flag = (self.register_a & 0x80) != 0
         self.register_a = (self.register_a << 1) & 0xFF
         self.zero_flag = (self.register_a == 0)
+    
+    def shr(self):
+        self.carry_flag = (self.register_a & 0x01) != 0
+        self.register_a = (self.register_a >> 1) & 0xFF
+        self.zero_flag = (self.register_a == 0)
 
     def cmp(self):
         result = (self.register_a - self.register_b) & 0xFF

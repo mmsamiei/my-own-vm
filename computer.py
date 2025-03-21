@@ -5,10 +5,21 @@ class Computer:
     def __init__(self, memory_size=256):
         self.memory = Memory(memory_size)
         self.cpu = CPU(self.memory)
+        
+        # Define memory-mapped I/O addresses
+        self.IO_INPUT_BUFFER = 0xF0  # Address for input
+        self.IO_OUTPUT_BUFFER = 0xF1  # Address for output
     
     def load_program(self, program, start_address=0):
         for i, value in enumerate(program):
             self.memory.write(start_address + i, value)
+            
+    def set_input(self, value):
+        self.memory.write(self.IO_INPUT_BUFFER, value)
+        
+    def get_output(self):
+        return self.memory.read(self.IO_OUTPUT_BUFFER)
+
     
     def run(self):
         self.cpu.pc = 0  # Reset program counter
