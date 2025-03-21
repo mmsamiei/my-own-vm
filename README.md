@@ -1,6 +1,17 @@
 # SimpleScript Language
 
-SimpleScript is a minimalist programming language designed to run on a simple virtual machine.
+SimpleScript is a minimalist programming language designed to run on a simple virtual machine. This project implements a complete compiler and runtime environment for SimpleScript.
+
+## Project Structure
+
+- `src/` - Contains the source code for the SimpleScript compiler and virtual machine
+  - `compiler.py` - The SimpleScript compiler
+  - `computer.py` - The virtual machine implementation
+  - `cpu.py` - The CPU emulator
+  - `memory.py` - Memory implementation for the virtual machine
+- `examples/` - Sample SimpleScript programs to demonstrate language features
+- `docs/` - Documentation (future enhancement)
+- `run_simplescript.py` - The main script to run SimpleScript programs
 
 ## Language Features
 
@@ -105,28 +116,39 @@ This is a simple language with the following limitations:
 - Only integers are supported
 - Limited to addition and subtraction
 - No input methods (values must be hardcoded)
+- Numbers are limited to a small range (avoid values over ~200)
 
 ## Running Programs
 
 To run a SimpleScript program:
 
 ```bash
-python3 run_simplescript.py your_program.txt
+python3 run_simplescript.py examples/your_program.txt
 ```
 
 Add the `--debug` flag to see detailed execution information:
 
 ```bash
-python3 run_simplescript.py your_program.txt --debug
+python3 run_simplescript.py examples/your_program.txt --debug
 ```
 
 ## Example Programs
 
-Several example programs are included to demonstrate SimpleScript's capabilities:
+Several example programs are included in the `examples/` directory:
 
 - `simple_test.txt`: Basic variable and arithmetic operations
 - `if_test.txt`: Demonstrates if/else statements
 - `while_test.txt`: Demonstrates while loops
 - `fibonacci.txt`: Generates the Fibonacci sequence
 - `calculator.txt`: A simple calculator with nested conditionals
-- `example_program.txt`: A comprehensive example showing various features 
+- `nested_test.txt`: Tests nested if/else statements and while loops
+- `example_program.txt`: A comprehensive example showing various features
+
+## Future Enhancements
+
+Potential future enhancements for SimpleScript:
+- Support for functions/procedures
+- Support for larger numeric values
+- More arithmetic operations (multiplication, division)
+- Input functionality
+- Arrays and more complex data structures 

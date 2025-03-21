@@ -8,6 +8,11 @@ Usage: python3 run_simplescript.py <program_file>
 
 import sys
 import traceback
+import os
+
+# Add the src directory to the Python path
+sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
+
 from compiler import SimpleCompiler
 from computer import Computer
 
