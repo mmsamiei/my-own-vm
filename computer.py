@@ -42,6 +42,7 @@ class Computer:
             print(f"PC: {self.cpu.pc}, Executing: {instruction} {operand if operand is not None else ''}")
             print(f"Registers - A: {self.cpu.register_a}, B: {self.cpu.register_b}")
             print(f"Flags - Zero: {self.cpu.zero_flag}, Carry: {self.cpu.carry_flag}")
+            print(f"-"*10)
             
             self.cpu.execute(instruction, operand)
             input("Press Enter to continue...")
