@@ -32,6 +32,7 @@ class CPU:
             "ADD": self._add,        # A = A + B
             "SUB": self._sub,        # A = A - B
             "MUL": self._mul,        # A = A * B
+            "DIV": self._div,        # A = A / B
             
             # Comparison operation
             "CMP": self._cmp,        # Compare A and B, set flags
@@ -102,6 +103,15 @@ class CPU:
     def _mul(self, _):
         """Multiply register A by register B."""
         self.register_a *= self.register_b
+        self.pc += 1
+    
+    def _div(self, _):
+        """Divide register A by register B."""
+        if self.register_b == 0:
+            print("Warning: Division by zero. Result undefined.")
+            self.register_a = 0
+        else:
+            self.register_a = self.register_a // self.register_b
         self.pc += 1
     
     def _cmp(self, _):

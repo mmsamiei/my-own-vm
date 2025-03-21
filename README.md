@@ -18,7 +18,7 @@ SimpleScript is a minimalist programming language designed to run on a simple vi
 SimpleScript supports:
 
 1. **Variable assignments**: `x = 5`
-2. **Arithmetic operations**: addition (`+`), subtraction (`-`), and multiplication (`*`)
+2. **Arithmetic operations**: addition (`+`), subtraction (`-`), multiplication (`*`), and division (`/`)
 3. **Output**: `print` statements
 4. **Comments**: Lines starting with `#`
 5. **Conditionals**: `if`/`else` statements with equality/inequality checks
@@ -142,7 +142,6 @@ This is a simple language with the following limitations:
 
 - No arrays or complex data structures
 - Only integers are supported
-- Limited to addition, subtraction, and multiplication
 - No input methods (values must be hardcoded)
 - Numbers are limited to a small range (avoid values over ~200)
 - SimpleScript has a simple lexer and parser, so complex expressions are not supported.
@@ -174,11 +173,12 @@ Several example programs are included in the `examples/` directory:
 - `calculator.txt`: A simple calculator with nested conditionals
 - `nested_test.txt`: Tests nested if/else statements and while loops
 - `functions.ss`: Demonstrates function definition, calls, and recursion
+- `division_test.ss`: Demonstrates the division operator
 
 ## Future Enhancements
 
 Potential future enhancements for SimpleScript:
-- Support for even more arithmetic operations (division, modulo)
+- Support for modulo operations 
 - Input functionality
 - Arrays and more complex data structures
 - Better error reporting with line numbers

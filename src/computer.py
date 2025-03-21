@@ -30,6 +30,11 @@ class Computer:
         self.cpu.pc = 0  # Reset program counter
         self.cpu.running = True
         
+        # Ensure all labels are resolved
+        for i, (instruction, operand) in enumerate(self.program):
+            if isinstance(operand, str):
+                raise ValueError(f"Unresolved label in program: {operand} at position {i}")
+        
         while self.cpu.running and self.cpu.pc < len(self.program):
             instruction, operand = self.program[self.cpu.pc]
             self.cpu.execute(instruction, operand)
@@ -81,6 +86,11 @@ class Computer:
     def debug_mode(self):
         self.cpu.pc = 0  # Reset program counter
         self.cpu.running = True
+        
+        # Ensure all labels are resolved
+        for i, (instruction, operand) in enumerate(self.program):
+            if isinstance(operand, str):
+                raise ValueError(f"Unresolved label in program: {operand} at position {i}")
         
         while self.cpu.running and self.cpu.pc < len(self.program):
             instruction, operand = self.program[self.cpu.pc]

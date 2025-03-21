@@ -124,6 +124,7 @@ class SimpleCompiler:
         # Generate a jump to skip over function definitions
         main_start_label = self.generate_label()
         self.instructions.append(("JMP", main_start_label))
+        self.fixups.append((len(self.instructions) - 1, main_start_label))
         
         # Second pass: Process function definitions
         for func_name, func_info in self.functions.items():
@@ -148,21 +149,25 @@ class SimpleCompiler:
             # Add return instruction at the end of function
             self.instructions.append(("RET", None))
             
-        # Add main program start label
+        # Add main program start label - this is the position after all functions
         self.labels[main_start_label] = len(self.instructions)
-            
+        
         # Third pass: Process the main program
-        for i, line in enumerate(clean_lines):
-            stripped = line.strip()
+        i = 0
+        while i < len(clean_lines):
+            stripped = clean_lines[i].strip()
             # Skip function definitions
             if stripped.startswith('def '):
-                indent_level = self.get_indent(line)
+                indent_level = self.get_indent(clean_lines[i])
                 _, end_idx = self.parse_block(clean_lines, i, indent_level)
                 i = end_idx + 1
             # Process non-function lines
             elif not stripped.startswith('def '):
                 self.current_line = i
-                self.process_line(line)
+                self.process_line(clean_lines[i])
+                i += 1
+            else:
+                i += 1  # Handle any other case
         
         # Add halt instruction at the end of the program
         self.instructions.append(("HALT", None))
@@ -390,6 +395,12 @@ class SimpleCompiler:
             self.load_operand(operands[0], 'A')
             self.load_operand(operands[1], 'B')
             self.instructions.append(("MUL", None))
+        elif '/' in right:
+            # Division
+            operands = [s.strip() for s in right.split('/')]
+            self.load_operand(operands[0], 'A')
+            self.load_operand(operands[1], 'B')
+            self.instructions.append(("DIV", None))
         else:
             # Simple assignment
             self.load_operand(right, 'A')
